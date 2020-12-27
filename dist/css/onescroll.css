@@ -1,0 +1,11 @@
+.onescroll {
+  overflow-y: hidden; }
+
+.onescroll-container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  position: relative; }
+
+.onescroll-section {
+  height: 100vh; }
