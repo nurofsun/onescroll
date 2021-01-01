@@ -9,6 +9,7 @@
     "@babel/cli": "^7.12.10",
     "@babel/core": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
+    "babel-preset-minify": "^0.5.1",
     "node-sass": "^5.0.0",
     "postcss": "^8.2.1",
     "postcss-cli": "^8.3.1"
@@ -17,7 +18,10 @@
     "server": "live-server --no-browser --port=8181",
     "compile:js": "babel --watch src/js --out-dir dist/js --verbose",
     "compile:css": "node-sass -w -r src/sass -o dist/css",
-    "compile": "npm run compile:js & npm run compile:css",
-    "build": ""
-  }
+    "compile": "yarn run compile:js & yarn run compile:css",
+    "build:js": "babel src/js --out-dir dist/js --verbose",
+    "build:css": "node-sass -r src/sass -o dist/css",
+    "build": "yarn run build:js && yarn run build:css"
+  },
+  "browserslist": "> 0.25%, not dead"
 }

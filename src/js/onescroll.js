@@ -51,7 +51,7 @@ class OneScroll {
 			}
 			setTimeout(function() {
 				document.body.addEventListener('wheel', moveSection);
-			}, 800)
+			}, 700)
 		};
 		//sections.forEach(function(section) {
 			//section.addEventListener('wheel', moveSection);
