@@ -15,6 +15,21 @@
         <div class="onescroll-section bg-red">Hello</div>
         <div class="onescroll-section bg-blue">Hello</div>
       </div>
+      <div class="onescroll-control">
+        <button class="onescroll-next">
+          Next
+        </button>
+        <button class="onescroll-previous">
+          Previous
+        </button>
+      </div>
     <script src="dist/js/onescroll.js"></script>
+    <script>
+      let onescroll = new OneScroll('.onescroll');
+      onescroll.init();
+      document.querySelector('.onescroll-next').addEventListener('click', function() {
+        onescroll.next();
+      });
+    </script>
   </body>
 </html>
