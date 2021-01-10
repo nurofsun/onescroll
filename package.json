@@ -1,17 +1,17 @@
 {
-  "name": "onescroll",
+  "name": "@nurofsun/onescroll",
   "version": "1.0.0",
   "author": "nurofsun",
   "description": "Enable One FullPage Scroll On Your Site",
   "main": "/src/js/onescroll.js",
   "license": "MIT",
-  "dependencies": {
+  "devDependencies": {
     "@babel/cli": "^7.12.10",
     "@babel/core": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
     "babel-preset-minify": "^0.5.1",
     "node-sass": "^5.0.0",
-    "postcss": "^8.2.1",
+    "postcss": "^8.2.4",
     "postcss-cli": "^8.3.1"
   },
   "scripts": {
