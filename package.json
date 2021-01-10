@@ -1,6 +1,6 @@
 {
   "name": "@nurofsun/onescroll",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "nurofsun",
   "description": "Enable One FullPage Scroll On Your Site",
   "main": "/src/js/onescroll.js",
