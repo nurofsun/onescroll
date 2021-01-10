@@ -72,13 +72,13 @@ class OneScroll {
 				let sectionHeightCenter = this.getHeightSection() / 2;
 
 				if (sectionHeightCenter > userTouch.clientY) {
-					if (this.getContainerCurrentPosition() !== 0) {
-						this.moveUp();	
+					if (this.getContainerCurrentPosition() < (this.getHeightSection() * (sections.length - 1))) {
+						this.moveDown();	
 					}
 				}
 				else {
-					if (this.getContainerCurrentPosition() < (this.getHeightSection() * (sections.length - 1))) {
-						this.moveDown();	
+					if (this.getContainerCurrentPosition() !== 0) {
+						this.moveUp();	
 					}
 				}
 			}
