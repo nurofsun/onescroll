@@ -18,7 +18,9 @@
         </h1>
       </header>
       <section class="onescroll-section">
-        
+    <button id="onescroll-section-0">
+      0
+    </button>
       </section>
       <section class="onescroll-section"></section>
     </div>
@@ -26,6 +28,9 @@
     <script>
       let onescroll = new OneScroll('.onescroll');
       onescroll.init();
+      document.querySelector('#onescroll-section-0').addEventListener('click', function() {
+        onescroll.moveByIndex(0);
+      });
     </script>
   </body>
 </html>
