@@ -2,6 +2,10 @@ class OneScroll {
 	constructor(selector) {
 		this.selector = selector;
 	}
+	getAllSections() {
+		let sections = document.querySelectorAll(`${this.selector} > .onescroll-container > .onescroll-section`);
+		return sections;
+	}
 	getHeightSection() {
 		let sections = document.querySelectorAll(`${this.selector} > .onescroll-container > .onescroll-section`);
 		return sections[0].clientHeight;
@@ -34,58 +38,64 @@ class OneScroll {
 		container.style.bottom = (heightOfEachSection * number) + 'px';
 	}
 	init() {
+		let sections = this.getAllSections();
+		let mediaQueryMobile = window.matchMedia('(max-width: 768px)');
 		this.setInitialContainerPosition();
 
-		let sections = document.querySelectorAll('.onescroll-section');
-
-		const attachAction = () => {
-			let mobileScreenSize = window.matchMedia('(max-width: 768px)');
-
-			if (!mobileScreenSize.matches) {
-				const moveSection = (event) => {
-					if (event.deltaY < 0) {
-						if (this.getContainerCurrentPosition() !== 0) {
-							this.moveUp();	
-							document.body.removeEventListener('wheel', moveSection);
-						}
-					}
-					else if (event.deltaY > 0) {
-						if (this.getContainerCurrentPosition() < (this.getHeightSection() * (sections.length - 1))) {
-							this.moveDown();	
-							document.body.removeEventListener('wheel', moveSection);
-						}
-					}
-					else {
-						return false;
-					}
+		const moveSection = (event) => {
+			if (event.deltaY < 0) {
+				if (this.getContainerCurrentPosition() !== 0) {
+					this.moveUp();	
+					document.removeEventListener('wheel', moveSection);
 					setTimeout(function() {
-						document.body.addEventListener('wheel', moveSection);
+						document.addEventListener('wheel', moveSection);
 					}, 700)
-				};
-				//sections.forEach(function(section) {
-					//section.addEventListener('wheel', moveSection);
-				//});
-				document.body.addEventListener('wheel', moveSection);
-			} else if (mobileScreenSize.matches) {
-				const moveSectionForMobile = (event) => {
-					let userTouch = event.changedTouches[0];
-					let sectionHeightCenter = this.getHeightSection() / 2;
+				}
+			}
+			else if (event.deltaY > 0) {
+				if (this.getContainerCurrentPosition() < (this.getHeightSection() * (sections.length - 1))) {
+					this.moveDown();	
+					document.removeEventListener('wheel', moveSection);
+					setTimeout(function() {
+						document.addEventListener('wheel', moveSection);
+					}, 700)
+				}
+			}
+			else {
+				return false;
+			}
+			event.preventDefault();
+		}
 
-					if (sectionHeightCenter > userTouch.clientY) {
-						if (this.getContainerCurrentPosition() < (this.getHeightSection() * (sections.length - 1))) {
-							this.moveDown();	
-						}
-					}
-					else {
-						if (this.getContainerCurrentPosition() !== 0) {
-							this.moveUp();	
-						}
+		const moveSectionForMobile = () => {
+			// detecting touch event only available for device touch screen A.K.A Mobile
+			let touchStartY, touchEndY;
+			
+			document.addEventListener('touchstart', (event) => {
+				touchStartY = event.changedTouches[0].screenY;
+			}, false);
+
+			document.addEventListener('touchend', (event) => {
+				touchEndY = event.changedTouches[0].screenY;
+				if (touchEndY > touchStartY) {
+					if (this.getContainerCurrentPosition() !== 0) {
+						this.moveUp();	
 					}
 				}
-				document.body.addEventListener('touchend', moveSectionForMobile, false);
-			}
+				else if (touchEndY < touchStartY) {
+					if (this.getContainerCurrentPosition() < (this.getHeightSection() * (sections.length - 1))) {
+						this.moveDown();	
+					}
+				}
+			}, false);
+
 		}
-		window.addEventListener('resize', attachAction);
-		attachAction();
+
+		if (mediaQueryMobile.matches) {
+			moveSectionForMobile();
+		}
+		else {
+			document.addEventListener('wheel', moveSection, false);
+		}
 	}
 }
