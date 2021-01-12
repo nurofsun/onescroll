@@ -72,4 +72,6 @@ Import the style on your sass/scss file
 Import module on you entry file, assume `app.js`
 ```js
 import OneScroll from 'onescroll';
+const onescroll = new OneScroll('.onescroll')
+onescroll.init();
 ```
